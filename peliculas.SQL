@@ -36,3 +36,8 @@ INNER JOIN inventory i on r.inventory_id = i.inventory_id
 INNER JOIN film f on i.film_id = f.film_id
 
 RECORDS ZORRO	2005-05-25 23:55:21.000	2005-09-02 02:35:22.000
+
+5 nc mucho teorico 
+SELECT rating, count(*) AS rating from film
+GROUP BY rating
+ORDER BY  rating DESC
