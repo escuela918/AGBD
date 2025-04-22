@@ -38,6 +38,51 @@ INNER JOIN film f on i.film_id = f.film_id
 RECORDS ZORRO	2005-05-25 23:55:21.000	2005-09-02 02:35:22.000
 
 5 nc mucho teorico 
-SELECT rating, count(*) AS rating from film
+6º SELECT rating, count(*) AS rating from film
 GROUP BY rating
 ORDER BY  rating DESC
+
+7º SELECT name, count(*) AS category from category
+INNER JOIN film_category on film_category.category_id= category.category_id
+INNER JOIN film on film.film_id = film_category.film_id
+GROUP by name
+ORDER by name DESC
+
+8ºSELECT last_name, count(*) AS actors from actor
+INNER JOIN film_actor on film_actor.actor_id= actor.actor_id
+INNER JOIN film on film.film_id = film_actor.film_id
+GROUP by last_name
+ORDER by actors DESC 
+LIMIT 10;
+
+9º SELECT country,city, address, count(*) as inventory_id from inventory
+INNER JOIN store on store.store_id= inventory.store_id
+INNER JOIN address on address.address_id = store.address_id
+INNER JOIN city on city.city_id = address.address_id
+INNER JOIN country on country.country_id = city.city_id
+GROUP by store.store_id
+
+10º SELECT country,city, address, title,  count(*) as film from film 
+INNER JOIN inventory on inventory.film_id = film.film_id
+INNER JOIN store on store.store_id= inventory.store_id
+INNER JOIN address on address.address_id = store.address_id
+INNER JOIN city on city.city_id = address.address_id
+INNER JOIN country on country.country_id = city.city_id
+GROUP by title
+10º SELECT country,city, address, count(*) as inventory_id from inventory
+INNER JOIN store on store.store_id= inventory.store_id
+INNER JOIN address on address.address_id = store.address_id
+INNER JOIN city on city.city_id = address.address_id
+INNER JOIN country on country.country_id = city.city_id
+GROUP by store.store_id
+
+11º SELECT name, AVG(rental_duration * rental_rate) AS costo_promedio from film
+INNER JOIN film_category on film_category.film_id= film.film_id
+INNER JOIN category on film_category.category_id = category.category_id
+GROUP by name
+
+12º SELECT title as nombre,(rental_duration*rental_rate) as costo_total, rental_duration as dias,rental_rate as costo_por_dia,rental_date as dia_que_se_alquilo,return_date  as dia_que_se_devolvio from film 
+INNER JOIN inventory on inventory.film_id = film.film_id
+INNER JOIN rental on rental.inventory_id = inventory.inventory_id
+WHERE title ="ALABAMA DEVIL"
+GROUP by title
