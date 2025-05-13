@@ -48,7 +48,7 @@ INNER JOIN film on film.film_id = film_category.film_id
 GROUP by name
 ORDER by name DESC
 
-8ºSELECT last_name, count(*) AS actors from actor
+8º SELECT last_name, count(*) AS actors from actor
 INNER JOIN film_actor on film_actor.actor_id= actor.actor_id
 INNER JOIN film on film.film_id = film_actor.film_id
 GROUP by last_name
@@ -86,3 +86,58 @@ INNER JOIN inventory on inventory.film_id = film.film_id
 INNER JOIN rental on rental.inventory_id = inventory.inventory_id
 WHERE title ="ALABAMA DEVIL"
 GROUP by title
+
+13º SELECT title,length, name from film
+INNER JOIN film_category on film_category.film_id = film.film_id
+INNER JOIN category on category.category_id = film_category.category_id
+ORDER by length DESC
+
+14º SELECT count (a.actor_id) AS amen,a.first_name,f.title FROM film f
+INNER JOIN film_actor fa on fa.film_id = f.film_id
+INNER JOIN actor a on a.actor_id = fa.actor_id
+WHERE title like "w%"
+GROUP by f.film_id
+HAVING amen>= 5
+ORDER by amen ASC
+
+15º SELECT sum(amount) as jaja, first_name, last_name from rental r
+INNER JOIN payment p on r.rental_id = p.rental_id
+INNER JOIN customer c on c.customer_id= r.customer_id
+GROUP by c.customer_id
+
+16º SELECT title, length,first_name FROM film
+INNER JOIN film_actor on film_actor.film_id = film.film_id
+INNER JOIN actor on actor.actor_id = film_actor.actor_id
+ORDER by length ASC
+
+17ºSELECT last_name,city,country,address, amount from rental r
+INNER JOIN payment p on p.rental_id = r.rental_id
+INNER JOIN customer c on c.customer_id = r.customer_id
+INNER JOIN address a on a.address_id = c.address_id
+INNER JOIN city ci on ci.city_id = a.city_id
+INNER JOIN country co on co.country_id = ci.country_id 
+ORDER by amount ASC
+
+18ºinsert into actor (actor_id,first_name,last_name,last_update)
+VALUES("201","brigit","aguirre","2020-11-25")
+
+19ºinsert into actor (actor_id,first_name,last_name,last_update)
+VALUES("202","leonardo","ojeda","2020-13-22"),
+      ("203","ana","porco","2020-29-03")
+
+20º UPDATE actor
+SET first_name = "ANA", last_name = "PORCO"
+WHERE first_name = "ana";
+UPDATE actor
+SET first_name = "LEONARDO", last_name = "OJEDA"
+WHERE first_name = "leonardo";
+UPDATE actor
+SET first_name = "BRIGIT", last_name = "AGUIRRE"
+WHERE first_name = "brigit";
+
+21º DELETE FROM actor
+WHERE first_name = "ANA";
+DELETE FROM actor
+WHERE first_name = "BRIGIT";
+DELETE FROM actor
+WHERE first_name = "LEONARDO";
